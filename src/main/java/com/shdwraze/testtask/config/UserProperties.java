@@ -10,4 +10,7 @@ public class UserProperties {
 
     @Value("${min-age}")
     private int minAge;
+
+    @Value("${user.not.found.message}")
+    private String userNotFoundMessage;
 }

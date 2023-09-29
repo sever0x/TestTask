@@ -10,4 +10,6 @@ public interface UserService {
     UserEntity createUser(UserRequest userRequest);
 
     UpdateUserResponse updateUser(UpdateUserRequest userRequest, int id);
+
+    void deleteUser(int id);
 }

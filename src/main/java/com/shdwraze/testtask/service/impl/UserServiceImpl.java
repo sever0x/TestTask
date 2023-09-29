@@ -40,8 +40,16 @@ public class UserServiceImpl implements UserService {
         checkBirthday(userRequest.birthday());
         return userMapper.toUpdateUserResponse(userRepository.save(updateUserFields(
                 userRepository.findById(id).orElseThrow(() ->
-                        new EntityNotFoundException("User with id " + id + " not found!")), userRequest
+                        new EntityNotFoundException(String.format(userProperties.getUserNotFoundMessage(), id))), userRequest
         )));
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        if (!userRepository.existsById(id)) {
+            throw new EntityNotFoundException(String.format(userProperties.getUserNotFoundMessage(), id));
+        }
+        userRepository.deleteById(id);
     }
 
     private boolean isUserAdult(Date birthday) {
