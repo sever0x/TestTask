@@ -7,19 +7,15 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public record UserRequest(
+public record UpdateUserRequest(
 
         @Email
-        @NotNull(message = "{NotNull.userRequest.email}")
         String email,
 
-        @NotNull(message = "{NotNull.userRequest.firstName}")
         String firstName,
 
-        @NotNull(message = "{NotNull.userRequest.lastName}")
         String lastName,
 
-        @NotNull(message = "{NotNull.userRequest.birthday}")
         @Temporal(TemporalType.DATE)
         Date birthday,
 
