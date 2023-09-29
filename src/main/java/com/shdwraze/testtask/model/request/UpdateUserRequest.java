@@ -1,11 +1,8 @@
 package com.shdwraze.testtask.model.request;
 
 import com.shdwraze.testtask.validation.Email;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record UpdateUserRequest(
 
@@ -16,8 +13,7 @@ public record UpdateUserRequest(
 
         String lastName,
 
-        @Temporal(TemporalType.DATE)
-        Date birthday,
+        LocalDate birthday,
 
         String address,
 

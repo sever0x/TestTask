@@ -1,6 +1,6 @@
 package com.shdwraze.testtask.model.response;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record UpdateUserResponse(
 
@@ -12,7 +12,7 @@ public record UpdateUserResponse(
 
         String lastName,
 
-        Date birthday,
+        LocalDate birthday,
 
         String address,
 

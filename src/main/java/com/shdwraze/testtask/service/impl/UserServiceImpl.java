@@ -6,6 +6,7 @@ import com.shdwraze.testtask.mapper.UserMapper;
 import com.shdwraze.testtask.model.entity.UserEntity;
 import com.shdwraze.testtask.model.request.UpdateUserRequest;
 import com.shdwraze.testtask.model.request.UserRequest;
+import com.shdwraze.testtask.model.response.FoundUsersResponse;
 import com.shdwraze.testtask.model.response.UpdateUserResponse;
 import com.shdwraze.testtask.repository.UserRepository;
 import com.shdwraze.testtask.service.UserService;
@@ -14,8 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -52,15 +52,18 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    private boolean isUserAdult(Date birthday) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -userProperties.getMinAge());
-        Date eighteenYearsAgo = calendar.getTime();
-
-        return birthday.before(eighteenYearsAgo);
+    @Override
+    public FoundUsersResponse findUsersInBirthdateRange(LocalDate from, LocalDate to) {
+        List<UserEntity> users = userRepository.findByBirthdayBetween(from, to == null ? LocalDate.now() : to);
+        return userMapper.toFoundUsersResponse(users.size(), users);
     }
 
-    private void checkBirthday(Date birthday) {
+    private boolean isUserAdult(LocalDate birthday) {
+        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(userProperties.getMinAge());
+        return birthday.isBefore(eighteenYearsAgo);
+    }
+
+    private void checkBirthday(LocalDate birthday) {
         if (!isUserAdult(birthday)) {
             throw new ValidationException(List.of("You must be over 18 years old!"));
         }

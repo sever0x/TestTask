@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -25,7 +25,8 @@ public class UserEntity {
     private String lastName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
+    @Temporal(TemporalType.DATE)
+    private LocalDate birthday;
 
     private String address;
 
