@@ -8,11 +8,9 @@ import com.shdwraze.testtask.model.response.UpdateUserResponse;
 import com.shdwraze.testtask.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
